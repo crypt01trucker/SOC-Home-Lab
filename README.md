@@ -83,6 +83,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      ```bash
      wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.16.0-amd64.deb
      ```
+![Elastic](Screenshots/ElasticDownload.png).
 
 2. **Install Elasticsearch:**  
    ```bash
