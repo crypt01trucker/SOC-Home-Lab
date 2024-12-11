@@ -95,6 +95,8 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 3. **Save the Security Auto-Configuration Information:**  
    - During installation, a superuser password is displayed. Save this in your password manager.
 
+![SecurityInfo](Screenshots/Elasticpowershellinstall.png).
+
 4. **Modify the Configuration File:**  
    - Navigate to this directory:  
      ```bash
@@ -110,6 +112,8 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      http.port: 9200
      ```
    - Save and exit.
+
+![ElasticIP](Screenshots/ElasticsearchIPport.png).
 
 5. **Start the Elasticsearch Service:**  
    ```bash
@@ -153,6 +157,8 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    sudo systemctl start kibana.service
    sudo systemctl status kibana.service
    ```
+
+![KibanaStatus](Screenshots/Kibanainstall3.png).
 
 5. **Generate the Enrollment Token:**  
    - Navigate to Elasticsearch’s binaries directory:  
