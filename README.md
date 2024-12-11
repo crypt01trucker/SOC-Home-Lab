@@ -322,17 +322,19 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 ![fleetservercommand](Screenshots/Fleetserverinstall3.png).
 
 
-## Windows Server Agent Configuration
+## Windows Server Elastic Agent Configuration
 
 ### Elastic Agent Deployment on Windows target server
 
 1. **Create Agent Policy**:
-   - In the Kibana web interface, click on `Continue enrolling elastic agent` and add a new agent policy.
+   - In Kibana, click on `Continue enrolling elastic agent` and add a new agent policy.
    - Select Windows as the target platform.
    - Give it a name
 
 2. **Copy PowerShell Command**:
    - Copy the provided PowerShell command for the agent installation.
+
+![Winagent](Screenshots/addWindowsAgent.png).
 
 ### Pre-Deployment Steps
 
@@ -349,8 +351,14 @@ Before running the enrollment command on the target Windows server, perform the 
    - Change the port in the copied PowerShell command from 443 to 8220.
    - Add the `--insecure` flag at the end of the command since a certificate hasn't been set up.
 
+![winagentpower](Screenshots/addWindowsAgent2.png).
+
 3. **Adjust Fleet Settings in Kibana**:
    - In Kibana, click the hamburger menu, scroll down to the Fleet management tab, and adjust the settings to use port 8220 instead of 443.
+
+![fleetsettings](Screenshots/Fleetserverinstall4settings.png).
+
+![Fleetports](Screenshots/Fleetserverinstall5settingsport.png).
 
 ### Run the Enrollment Command
 
@@ -364,20 +372,25 @@ Before running the enrollment command on the target Windows server, perform the 
 ### Verify Agent Enrollment
 
    **Check Agent Status**:
-   - Go back to the Kibana web interface.
+   - Go back to Kibana.
    - Navigate to the Agents section under the Fleet management tab.
    - Verify that the "Target Win Server" is listed as an enrolled agent.
+
+![winservadded](Screenshots/addWindowsAgent4.png).
 
 ## Install and Configure Sysmon on Target Windows Server
 
 1. **Download Sysmon**:
-   - Download Sysmon from [Microsoft Sysinternals](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) and the configuration file from [Olaf Hartong's GitHub](https://github.com/olafhartong/sysmon-modular).
+   - Download Sysmon from [Microsoft Sysinternals](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) and download the configuration file from [Olaf Hartong's GitHub](https://github.com/olafhartong/sysmon-modular).
 
 2. **Install Sysmon**:
    - Open PowerShell in admin mode and run:
      ```sh
      .\Sysmon.exe -i sysmonconfig.xml
      ```
+
+![sysmon](Screenshots/addWindowsAgent5.png).
+
 
 ## Set Up Integrations in Elastic
 
@@ -390,6 +403,12 @@ To specify what telemetry data we want to send to Elasticsearch via our Elastic 
    - For the channel name, use `Microsoft-Windows-Sysmon/Operational`, which can be found by navigating through Event Viewer on your Target Windows Server.
    - Leave the other settings as default, scroll down and click on **existing hosts**, choose the policy name you just created, and then click on **Save and Continue**.
 
+![sysmonintegration](Screenshots/integrationsysmon.png).
+
+![sysmonevent](Screenshots/integrationsysmon2.png).
+
+![sysmonintegration2](Screenshots/integrationsysmon3.png).
+
 2. **Configure Windows Defender Integration**:
    - Repeat similar steps for setting up an integration for Windows Defender.
    - Search for "Windows Defender" in Event Viewer, right-click on Operational logs, copy its full name for use as a channel name.
@@ -398,6 +417,10 @@ To specify what telemetry data we want to send to Elasticsearch via our Elastic 
      - Event ID 1117: Action taken against malware.
      - Event ID 5001: Real-time protection disabled.
    - Add these Event IDs during integration setup and save it under existing hosts with your policy name.
+
+![Defenderintegration](Screenshots/integrationdefender.png).
+
+![bothintegrations](Screenshots/integrationbothpolicies.png).
 
 
 ## Deploying the Target Ubuntu Server (SSH Server)
@@ -410,8 +433,8 @@ Deploy a new Ubuntu server, which will serve as our target SSH server. This VM d
 
 Now, let's install the Elastic Agent on this new target SSH server VM.
 
-1. **Access Kibana Web Interface**:
-   - Open the Kibana web interface and click on the hamburger menu in the top left corner.
+1. **Access Kibana**:
+   - In Kibana click on the hamburger menu in the top left corner.
    - Scroll down to the Management tab and click on Fleet.
 
 2. **Create Agent Policy**:
@@ -432,10 +455,14 @@ Now, let's install the Elastic Agent on this new target SSH server VM.
      sudo ./elastic-agent install --url=https://<FLEET_SERVER_PUBLIC_IP>:8220 --enrollment-token=<ENROLLMENT_TOKEN> --insecure
      ```
 
+![addsshagent](Screenshots/addlinuxagent.png).
+
 ### Verify Installation
 
 1. **Verify Agent Installation**:
    - Return to Kibana, navigate to the Agents section, and verify that the SSH server (your target Ubuntu server) is listed.
+
+![bothagentsinstalled](Screenshots/addbothagents.png).
 
 
 ## Creating an SSH Brute Force Detection Rule Alert  
@@ -453,6 +480,8 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
      ```
      This will display all SSH-related log events, including successful and failed logins.  
 
+![sshquery1](Screenshots/querySSH.png).
+
 2. **Add Useful Fields to the Table**:
    - Add the following fields to the columns for better visibility by clicking the `+` icon next to each field from the left hand side of your screen:
      - `system.auth.ssh.event`  
@@ -462,6 +491,8 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
 
 3. **Filter for Failed Attempts**:
    - Hover over the `system.auth.ssh.event` field, find the value for failed attempts (e.g., `"Failed"`), and click the `+` icon to filter only those events.  
+
+![failedssh](Screenshots/querySSH2.png).
 
 4. **Save the Query**:
    - At the top-right corner of the page, click on **Save Query**.  
@@ -477,6 +508,8 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
 
 2. **Choose a Rule Type**:
    - Select **Threshold**.  
+
+![SSHrule](Screenshots/RuleSSH.png).
 
 3. **Define the Query**:
    - Scroll down and paste the following query:  
@@ -494,8 +527,12 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
      - Run every 5 minutes.  
      - Look back at the last 5 minutes of logs.  
 
+![SSHrule2](Screenshots/RuleSSH2.png).
+
 5. **Enable the Rule**:
    - Leave the default actions and click **Create & Enable Rule**.  
+
+![SSHrule3](Screenshots/RuleSSH3.png).
 
 
 ## Creating a Dashboard for SSH Activity
@@ -516,23 +553,33 @@ In this section, we will create a dashboard in Kibana to visualize SSH activity.
      ```
    - Press **Enter** to execute the query.
 
+![map](Screenshots/map.png).
+
 2. **Add a Layer**:
    - Click on **Add layer**.
    - Choose **Choropleth** from the options.
+
+![maplayer](Screenshots/map2.png).
 
 3. **Select Data View**:
    - From the **EMS Boundaries** dropdown, select **World Countries**.
    - For the data view, select your relevant data source.
    - In the join field dropdown menu, choose `source.geo.country_iso_code`.
 
+![maplayer2](Screenshots/map3.png).
+
 4. **Finalize Layer Settings**:
    - Click on **Add and continue**, leaving all settings as default.
    - Click on **Save** at the top-right corner of the screen.
+
+![mapsave](Screenshots/mapsave.png).
 
 ### Name the Map
 
    **Provide a Title**:
    - Enter a title like **Failed SSH Logon Attempts** and click on **Save**.
+
+![Mapname](Screenshots/map4.png).
 
 ### Step 4: Duplicate for Successful SSH Attempts
 
@@ -543,6 +590,12 @@ In this section, we will create a dashboard in Kibana to visualize SSH activity.
      agent.name:"SOClab-Linux" and system.auth.ssh.event:"Accepted"
      ```
    - Update the title to **Successful SSH Logon Attempts** and click on **Save**.
+
+![mapduplicate](Screenshots/map5.png).
+
+![mapsucessful](Screenshots/map6.png).
+
+![mapfailandsuccessSSH](Screenshots/map7.png).
 
 
 ## Creating an RDP Brute Force Alert
@@ -600,6 +653,9 @@ This query will display all failed logon attempts by the `administrator` user on
 5. **Enable the Rule**:
    - Leave the default actions and click **Create & Enable Rule**.
 
+![bothrules](Screenshots/RuleSSH-RDP.png).
+
+
 ## Adding RDP Activity to the Dashboard
 
 ### Navigate to Dashboard
@@ -644,6 +700,8 @@ This query will display all failed logon attempts by the `administrator` user on
      ```
    - Update the title to **Successful RDP Logon Attempts** and click on **Save**.
 
+![4maps](Screenshots/Kibanadashboardall4maps.png).
+
 
 ## Enhancing the Dashboard with More Visualizations
 
@@ -669,14 +727,20 @@ Now that we have all four maps in our dashboard, let's add more details by creat
 4. **Change Visualization Type**:
    - Change the visualization type from the default **Bar** to **Table**.
 
+![Tables](Screenshots/DashboardTables.png).
+
 5. **Configure Each Field**:
    - Click on each field from the right side of your screen to configure it:
      - For the `user.name` field, change the number of values to **10**.
      - Click on **Advanced** and uncheck the option for **Group remaining values as "other"**.
    - Repeat this configuration for the other fields.
 
+![tables2](Screenshots/DashboardTables2.png).
+
 6. **Sort Records**:
    - Click on the three little dots in the count of records column and select **Sort Descending**.
+
+![tablessort](Screenshots/DashboardTables33.png).
 
 7. **Save the Table**:
    - Once configured, click on **Save** at the top right of the screen.
@@ -716,6 +780,9 @@ Now that we have all four maps in our dashboard, let's add more details by creat
      ```
 
 Now, you have a dashboard with clear visualizations that allow you to quickly see, at a glance, failed and successful RDP and SSH logins, along with tables displaying the IP addresses and countries from which they originated.
+
+![tablesfinal](Screenshots/DashboardTables4.png).
+
 
 ## Setting Up Mythic C2 (Command & Control)
 
