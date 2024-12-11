@@ -79,7 +79,9 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 1. **Download the Elasticsearch Package:**  
    - Visit [Elastic’s download page](https://www.elastic.co/downloads/elasticsearch).  
    - Copy the link for the `deb` x86_64 package.
+
 ![Elastic](Screenshots/ElasticDownload.png).
+
    - Download it using `wget`:  
      ```bash
      wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.16.0-amd64.deb
