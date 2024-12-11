@@ -171,6 +171,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      ```
    - Copy the token created for use during Kibana setup.
 
+![Kibanatoken1](Screenshots/kibanatoken1.png).
 
 ### **Access Kibana**  
 
@@ -187,6 +188,8 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      https://<VM Public IP>:5601
      ```
    - Enter the enrollment token and follow the setup prompts.
+
+![kibanatoken](Screenshots/Kibanatoken.png).
 
 ### Retrieve and Enter Kibana Verification Code
 
@@ -208,6 +211,8 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    ./kibana-verification-code
    ```
 
+![kibanacode](Screenshots/kibanaverificationcode2.png).
+
 4. **Enter the Code in Kibana GUI**:
    Go to the Kibana GUI in your web browser, and paste the verification code when prompted.
 
@@ -221,6 +226,10 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 
 1. **Access Security Alerts**:
    In the Kibana GUI, click the hamburger menu (three horizontal lines) in the top left corner. Scroll down to the Security tab and click on "Alerts". You might see an error message saying "Failed to retrieve detection engine privileges".
+
+![ElasticLogin](Screenshots/Elasticfirstlogin.png).
+
+![alerterror](Screenshots/Elasticfirstloginerror.png).
 
 2. **Generate Encryption Keys**:
    Return to your SSH terminal and navigate to the Kibana binary directory again:
@@ -237,12 +246,16 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    - `xpack.reporting.encryptionKey`
    - `xpack.security.encryptionKey`
 
+![keystore](Screenshots/kibanakeystore.png).
+
 3. **Add Keys to Kibana Keystore**:
    Add each key to the Kibana keystore one by one:
    ```sh
    ./kibana-keystore add
    ```
    Follow the prompts to enter each key. 
+
+![keystoreadd](Screenshots/kibanakeystore2.png).
 
 4. **Restart Kibana Service**:
    Once all keys are added, restart the Kibana service to apply the changes:
@@ -271,9 +284,13 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    - Place this VM in the same VPC or VNET as your other VMs, which has the same firewall rules, to ensure communication.
 
 2. **Configure Elastic Fleet Server**:
-   - Navigate to the Kibana GUI, click the hamburger menu, scroll down to the Management tab, and click on Fleet.
+   - Navigate to Kibana, click the hamburger menu, scroll down to the Management tab, and click on Fleet.
    - Click on "Add Fleet Server," choose "Quick Start," and fill in the name and public address of the fleet server you just created.
    - Click on "Generate Fleet Server Policy."
+
+![fleetserver](Screenshots/Fleetserverinstall.png).
+
+![fleetserver2](Screenshots/Fleetserverinstall2.png).
 
 3. **SSH into the Fleet Server**:
    - Connect to the fleet server using SSH and run the following command to update the server:
@@ -301,6 +318,8 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
        --fleet-server-es-ca-trusted-fingerprint=<FINGERPRINT> \
        --fleet-server-port=8220
      ```
+
+![fleetservercommand](Screenshots/Fleetserverinstall3.png).
 
 
 ## Windows Server Agent Configuration
