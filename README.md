@@ -1057,7 +1057,7 @@ Download the payload on the Mythic server:
 wget https://45.77.53.41:7443/direct/download/34ce1813-32d4-484f-99c3-2633a9ea7cb9 --no-check-certificate
 ```
 
-![download2]({Screenshots/mythicpayload8download2.png).
+![download2](Screenshots/mythicpayload8download2.png).
 
 Since it creates a very long filename (`34ce1813-32d4-484f-99c3-2633a9ea7cb9`), let's rename it to `apollo.exe` or any name you prefer with this command:
 
