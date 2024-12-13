@@ -1534,6 +1534,8 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
      ```
    - Add public IP address to `server.publicBaseUrl: "http://<public-IP-address-ELK-server>:5601"`.
 
+![uncoment](Screenshots/rulesaction2.png).
+
 10. **Restart Kibana**:
    ```bash
    systemctl restart kibana.service
@@ -1542,6 +1544,8 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
    ```bash
    systemctl status kibana.service
    ```
+
+![linkinticket](Screenshots/rulesaction3.png).
 
 ## Modifying RDP Brute Force Attempt and Mythic C2 Apollo Agent Rules
 
@@ -1553,6 +1557,8 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
 
 3. **Verify Ticket Creation**:
    - Ensure that both alert rules are now creating tickets in your ticketing system.
+
+![ruledetection](Screenshots/rulesaction5.png).
 
 
 ## Installing Elastic Defend
@@ -1566,27 +1572,50 @@ Now that we have started the 30-day free trial in Elastic, let's install the EDR
    - Select the **Traditional Endpoints** type and choose the **Complete EDR** option.
    - Click on **Existing hosts**, select the **Windows Target Server**, and then click on **Save and continue**.
 
+![elasticdefent](Screenshots/elasticdefender.png).
+
 4. **Manage Endpoints**: Navigate back to the **Security** tab, click on **Manage**, then click on **Endpoints**. Here, you will see an option under actions labeled **Isolate host**, which is not included in the free version.
+
+![isolatehost](Screenshots/elasticdefender2.png).
 
 5. **Testing with Mythic C2 Apollo Agent**:
    - RDP back into our Target Windows Server and try to run the Mythic C2 Apollo agent again.
    - You will notice that Elastic Defend prevents us from running the Apollo agent and quarantines it, making it invisible even in the Temp folder.
 
+![detected](Screenshots/elasticdefender3.png).
+
+![quarantine](Screenshots/elasticdefender4.png).
+
 6. **Review Alerts**: Go to the **Alerts** section where you will find a new rule that was not manually created. 
 
-7. **Create a Response for new Rule**:
+![newrule](Screenshots/elasticdefender5.png).
+
+7. **Create a Action for new Rule**:
    - Click on one of the new rules titled **Malware Prevention Alert**.
    - In the flyout, click on **Endpoint Security**, then click on **Edit rule settings**.
    - Go to the Actions tab in the Response Actions, select Elastic Defend, choose an action from the list (let's select `Isolate`), and click on **Save changes**.
 
+![action](Screenshots/elasticdefender6.png).
+
+![defendaction](Screenshots/elasticdefender7.png).
+
+![actiondefend](Screenshots/elasticdefender8.png).
+
 8. **Run Mythic Apollo Agent Again**:
    - Since it is no longer on our Target Windows Server, download it again.
    - As soon as you do, Elastic Defend quarantines the Apollo agent before it can be executed.
-   - You will see an Elastic Defend message indicating that the host is isolated and that it cannot ping Cloudflare or Google.
+   - You will see an Elastic Defend message indicating that the host is isolated and that it cannot ping Cloudflare or Google DNS.
+
+![dnsping](Screenshots/elasticdefender9.png).
+
+![hostisolated](Screenshots/elasticdefender99.png).
 
 9. **Release Host for Testing Again**:
    - To test this again, return to Kibana, go to the Security tab, then Manage, and click on Endpoints.
    - Locate your Target Windows Server; from the right side of your screen, click on the three dots under Action and select `Release host`.
+
+![releasehost](Screenshots/elasticdefender999.png).
+
 
 ## Conclusion  
 
