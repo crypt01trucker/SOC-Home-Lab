@@ -992,7 +992,7 @@ xfreerdp /u:Administrator /p:S3cr3tp@s5w0rd /v:199.247.5.216:3389
 `-p` is the password for the user account.  
 `-V` is the target Windows server IP address (including the port number).  
 
-![xfreerdp(Screenshots/KaliXfreeRDP.png).
+![xfreerdp](Screenshots/KaliXfreeRDP.png).
 
 ![rdpconnected](Screenshots/KaliXfreeRDP2.png)
 
