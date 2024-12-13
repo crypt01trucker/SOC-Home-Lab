@@ -1139,6 +1139,13 @@ mimikatz sekurlsa::logonpasswords
 
 ![mimikatz](Screenshots/mythicpayloadcallback.png).
 
+![mythicdownloadpassword](Screenshots/mythicapollodownload.png).
+
+![mythicdownload2](Screenshots/mythicapollodownload2.png(.
+
+![mythicdownloadother](Screenshots/mythicapollodownload3.png).
+
+
 ## Creating Detection and Alert Rules in ELK for the Mythic C2 Apollo Agent
 
 In this section, we will create a detection and alert rule for the Mythic C2 Apollo agent, as well as build a dashboard with 3 tables.
@@ -1150,6 +1157,12 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
 
 2. **Maximize a Process Creation Event**  
    Locate a log entry corresponding to a process creation event (Sysmon Event 1) and maximize it to view its details.
+
+![queryc2](Screenshots/RuleC2.png).
+
+![queryc23](Screenshots/RuleC23.png).
+
+![queryc24](Screenshots/RuleC24.png).
 
 3. **Refine Your Search Query**  
    To narrow down your search, include additional parameters such as the SHA256 hash and the original file name. Use the following query:
@@ -1175,6 +1188,8 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
    - winlog.event_data.CurrentDirectory
    - event.provider
 
+![Queryc26](Screenshots/RuleC25.png).
+
 5. **Create a New Detection Rule**  
    Navigate to the `Security` tab, click on `Rules`, then select `Detection rules (SIEM)`, and click on `+ Create new rule`. Choose `Custom query`.
 
@@ -1185,6 +1200,8 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
    event.code: "1" and (winlog.event_data.OriginalFileName: "Apollo.exe" or winlog.event_data.Hashes: "SHA256=53FA7B788EE8C7F863A1237CF6B80C5ED8274A0AF433E5EFE430AE1ABCD1A793")
    ```
 
+![c2rule](Screenshots/RuleC26.png).
+
 7. **Add Required Fields**  
    Click on `Required fields` and add all relevant fields you previously selected. Then click on `Continue`.
 
@@ -1194,19 +1211,22 @@ In this section, we will create a detection and alert rule for the Mythic C2 Apo
 9. **Schedule the Rule**  
    Set the rule to run every 5 minutes with a lookback period of 5 minutes, then create and enable the rule.
 
-### Creating a Dashboard with Three Tables
+![c2rulefinish](Screenshots/RuleC27.png).
+
+### Creating a Dashboard with 3 Tables
 
 We will create three tables in our dashboard to monitor specific events:
 
 - **Event ID 3**: A process initating a network connections
-- **Event ID 1**: Process creation using PowerShell, CMD, or rundll32
-- **Event ID 5001**: Windows Defender disabling
+- **Event ID 1**: Process creation using PowerShell, CMD, or RUNDLL32
+- **Event ID 5001**: Disabling Windows Defender
 
 #### Dashboard Creation
 
 1. **Event ID 1 - Process Creation**  
    Start by searching for Sysmon Event ID 1:
 
+![eventprovider](Screenshots/eventprovidersysmon.png).
 
 2. **Maximize a Log for Relevant Fields**  
    Maximize one of the documents to identify relevant fields to include in your table.
@@ -1215,7 +1235,7 @@ We will create three tables in our dashboard to monitor specific events:
    event.code: "1" and event.provider : "Microsoft-Windows-Sysmon" and (*powershell* or *cmd* or *rundll32*)
    ```
 
-This query identifies process creation events from Sysmon, specifically targeting instances where PowerShell, cmd, or rundll32 are involved.
+This query identifies process creation events from Sysmon, specifically targeting instances where PowerShell, CMD, or RUNDLL32 are involved.
 
 3. **Event ID 3 - Network Connections**  
    Search for Sysmon Event ID 3:
@@ -1247,6 +1267,10 @@ With our 3 queries ready, we can now proceed to create our tables in dashboard.
     
     - Drag relevant fields from the left panel into the middle area of the screen.
 
+![tablec2](Screenshots/Tablesc2.png).
+
+![tablec23](Screenshots/Tablesc24.png).
+
 6. **Format Each Table**  
    
     - Adjust field order by dragging them as needed from the right of your screen.
@@ -1257,11 +1281,15 @@ With our 3 queries ready, we can now proceed to create our tables in dashboard.
     
     - Rename field names for clarity (e.g., change “Top 999 values of host.hostname” to “hostnames”).
 
+![modifytables](Screenshots/Tablesc22.png).
+
 7. **Save Each Visualization**  
    
     - After configuring each table, click on `Save`.
 
-We now have our alerts set up for detecting suspicious activities related to the Mythic C2 Apollo agent and a dashboard with tables providing clear visibility into critical security events within the home lab.
+![tablefinalc2](Screenshots/Tablesc2final.png).
+
+We now have our alerts set up for detecting suspicious activities related to the Mythic C2 Apollo agent and a dashboard with tables providing clear visibility into critical security events.
 
 ## Creating a Ticketing System with osTicket
 
@@ -1290,9 +1318,16 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Open the XAMPP Control Panel.
    - Start both **Apache** and **MySQL** services.
 
+![xamppwizard](Screenshots/Xamppwizard.png).
+
 3. **Access phpMyAdmin**:
-   - Click on "Admin" in the XAMPP Control Panel to open the web portal.
+   - Click on "Start" in the XAMPP Control Pannel for `Apache` and `MySQL`.
+   - Then click on "Admin" to open the web portal.
    - Navigate to `phpMyAdmin`.
+
+![adminportal](Screenshots/Xamp7.png)
+
+![php](Screenshots/Xamp8.png).
 
 ### Configuring phpMyAdmin
 
@@ -1303,15 +1338,33 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Set a password and click on `Go`.
    - Repeat this process for the `pma` user.
 
+![phpconfig](Screenshots/Xamp9.png).
+
+![phpuserconfig](Screenshots/Xamp99.png).
+
+![phplogin](Screenshots/Xamp999.png).
+
+![userinfo](Screenshots/Xamp9999.png).
+
+![userend](Screenshots/Xamp99999.png).
+
 ### Configuring Configuration Files
 
 1. **Edit Apache Configuration**:
    - Navigate to `C:\xampp`, right-click on properties, and edit.
    - Change `apache_domainname=` to your public IP address of the osTicket Windows server and save.
 
+![properties](Screenshots/Xamp2.png).
+
+![properties2](Screenshots/Xamp3.png).
+
 2. **Edit phpMyAdmin Configuration**:
    - Go to `C:\xampp\phpMyAdmin` and edit `config.inc.php`.
    - Update the server's host IP with your public IP address and change passwords accordingly.
+
+![config](Screenshots/Xamp4.png).
+
+![config2](Screenshots/Xamp5.png).
 
 ### Firewall Configuration
 
@@ -1323,17 +1376,27 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
      - Input `80, 443` and click Next.
      - Select "Allow the connection" and complete the wizard with a name like "Inbound 80, 443".
 
+![firewall](Screenshots/Windowsserverfirewall2.png).
+
 ### Creating a Database in phpMyAdmin
 
 1. Open phpMyAdmin in your web browser.
 
 2. Click on "New" at the top left of the screen.
 
+![newDB](Screenshots/osticketconfig5.png).
+
 3. Enter a name for your database and click "Create".
+
+![databaase](Screenshots/osticketconfig6.png).
+
+![database2](Screenshots/osticketconfig7.png).
 
 ### Installing osTicket
 
 1. **Download osTicket**: Visit [osTicket](https://osticket.com/) and download osTicket on your Windows server.
+
+![osticketdownload](Screenshots/osticketdownlload.png).
 
 2. **Extract Files**: Extract the downloaded files.
 
@@ -1341,15 +1404,25 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
    - Navigate to `C:\xampp\htdocs` and create a new folder named `osticket`.
    - Copy both folders "scripts" and "upload" into this new folder.
 
+![copyfiles](Screenshots/osticketconfig.png).
+
 4. **Run osTicket Setup**:
    - In your web browser, navigate to `<osticket_windows_server_IP_address>/osticket/upload/setup`.
    - Follow prompts until you encounter "Configuration file missing". Rename `include/ost-sampleconfig.php` to `ost-config.php`.
    - Change directory to `C:\xampp\htdocs\osticket\upload\include` and rename the `ost-sampleconfig.php` file to `ost-config.php`.
 
+![osticketwebportal](Screenshots/osticketconfig2.png).
+
+![missingfiles](Screenshots/osticketconfig3.png).
+
+![changename](Screenshots/osticketconfig4.png).
+
 5. Complete the Basic Installation:
    - Fill out all required fields (name, email, username, password).
    - For database settings, enter your public IP address of the osTicket Windows server along with database name, username, and password created in phpMyAdmin.
    - Click on "Install Now".
+
+![install](Screenshots/osticketconfig8.png).
 
 6. **File Permissions via PowerShell**:
    - Open an admin PowerShell terminal.
@@ -1359,12 +1432,16 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
      icacls ost-config.php /reset
      ```
 
+![powershell](Screenshots/osticketconfig99.png).
+
 7. **Access URLs**:
    Copy these URLs for future access:
 
    - User URL: `http://<your_public_IP>/osticket/upload/`
    
    - Staff Control Panel URL: `http://<your_public_IP>/osticket/upload/scp`
+
+![urls](Screenshots/osticketconfig9.png).
 
 8. Access the admin portal using the staff control panel URL to configure osTicket as needed (e.g., adding agents, setting SLAs).
 
@@ -1378,7 +1455,12 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
 
 4. Copy this API key for later use.
 
+![API](Screenshots/osticketticket3.png).
+
 5. In Kibana, go to Stack Management > Connectors > + Create connector.
+> When trying to add an API connector to Elastic, we need to upgrade the license. Let's do that and choose the free 30-day trial.
+
+![upgrade](Screenshots/osticketticket4.png).
 
 6. Choose Webhook as the connector type:
    - Set method as POST.
@@ -1387,10 +1469,18 @@ Now let's create a ticketing system for our alerts using **open-source osTicket*
 
 7. Save & test this connector.
 
+![Editconnector](Screenshots/osticketticket5.png).
+
 8. Test Webhook Payload:
    Use an example from [osTicket's GitHub](https://github.com/osTicket/osTicket/blob/develop/setup/doc/api/tickets.md) page for testing purposes by copying the XML payload example into Kibana's body section and running it.
 
+![githubexample](Screenshots/osticketticket6.png).
+
+![test](Screenshots/osticketticket7.png).
+
 9. Check osTicket's Agent panel; you should see a new ticket generated from your API test.
+
+![elasticticket](Screenshots/osticketticket8.png).
 
 Now you have successfully integrated osTicket with ELK! Any alerts generated in ELK will automatically create tickets in your osTicket ticketing system.
 
@@ -1416,6 +1506,8 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
      - Update `<subject>` to include the rule name by clicking on the plus icon and selecting the rule name.
      - Adjust the message to: "Possible <name of the rule>, please investigate."
 
+![elasticticketmodify](Screenshots/osticketticket9.png).
+
 5. **Save Changes**:
    - Click on `Save changes`.
 
@@ -1429,15 +1521,20 @@ Now you have successfully integrated osTicket with ELK! Any alerts generated in 
 7. **Check osTicket**:
    - Go to the osTicket web portal to verify if a ticket for SSH Brute Force was created.
 
+![osticketelastic](Screenshots/osticketticket999.png).
+
 8. **Add Rule Link in Ticket**:
    - Modify your alert rule to include a link back to Kibana for easier access by SOC analysts.
+
+![link](Screenshots/linkurl.png).
+
    - SSH into your ELK server and set your public IP address in the config file:
      ```bash
      nano /etc/kibana/kibana.yml
      ```
    - Add public IP address to `server.publicBaseUrl: "http://<public-IP-address-ELK-server>:5601"`.
 
-9. **Restart Kibana**:
+10. **Restart Kibana**:
    ```bash
    systemctl restart kibana.service
    ```
