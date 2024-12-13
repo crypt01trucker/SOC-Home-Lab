@@ -745,6 +745,8 @@ Now that we have all four maps in our dashboard, let's add more details by creat
 7. **Save the Table**:
    - Once configured, click on **Save** at the top right of the screen.
 
+![finalmap](Screenshots/finalmap2.png).
+
 ### Step 2: Create a Table for Successful SSH Logon Attempts
 
 1. **Duplicate Table**:
