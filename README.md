@@ -31,7 +31,7 @@ Deploying a Security Operations Center (SOC) in the cloud to simulate real-world
 
 ## Lab Topology
 
-![topology](Screenshots/Lab-Topology.drawio - draw.io.png)
+![topology](Screenshots/labtopology.png)
 
 ## Step 1: Installing ELK on a Cloud VM  
 
